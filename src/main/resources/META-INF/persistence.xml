@@ -10,6 +10,8 @@
             transaction-type="RESOURCE_LOCAL">
 
         <class>it.aleph.omega.model.Book</class>
+        <class>it.aleph.omega.model.Author</class>
+        <class>it.aleph.omega.model.Tag</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
