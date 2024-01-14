@@ -1,4 +1,5 @@
 target/
+out/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -30,3 +31,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### iml files
+omega-legacy.iml
