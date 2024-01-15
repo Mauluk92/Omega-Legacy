@@ -7,9 +7,10 @@ import it.aleph.omega.mapper.BookDtoMapper;
 import it.aleph.omega.model.Book;
 import it.aleph.omega.service.BookService;
 import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 import java.util.List;
-
+@Singleton
 public class BookServiceImpl implements BookService {
 
     private final BookDao bookDao;

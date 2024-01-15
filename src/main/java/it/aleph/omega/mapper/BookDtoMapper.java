@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "cdi" )
+@Mapper(componentModel = "jakarta" )
 public interface BookDtoMapper {
 
     Book toEntity(CreateBookDto createBookDto);

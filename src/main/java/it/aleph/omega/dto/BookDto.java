@@ -21,6 +21,6 @@ public class BookDto {
     private String pubHouse;
     private Boolean available;
     private BigDecimal price;
-    private List<Author> authorList;
-    private List<Tag> tagList;
+    private List<AuthorDto> authorList;
+    private List<TagDto> tagList;
 }
