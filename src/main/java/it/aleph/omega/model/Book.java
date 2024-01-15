@@ -1,6 +1,8 @@
 package it.aleph.omega.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -8,6 +10,8 @@ import java.util.List;
 
 @Entity
 @Table(name="book")
+@Getter
+@Setter
 public class Book {
 
     @Id
@@ -37,76 +41,4 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name="tag_id",
                     referencedColumnName = "id") )
     private List<Tag> tagList;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public String getDeweyDecimalCode() {
-        return deweyDecimalCode;
-    }
-
-    public void setDeweyDecimalCode(String deweyDecimalCode) {
-        this.deweyDecimalCode = deweyDecimalCode;
-    }
-
-    public String getContentDescription() {
-        return contentDescription;
-    }
-
-    public void setContentDescription(String contentDescription) {
-        this.contentDescription = contentDescription;
-    }
-
-    public LocalDate getPubDate() {
-        return pubDate;
-    }
-
-    public void setPubDate(LocalDate pubDate) {
-        this.pubDate = pubDate;
-    }
-
-    public String getPubHouse() {
-        return pubHouse;
-    }
-
-    public void setPubHouse(String pubHouse) {
-        this.pubHouse = pubHouse;
-    }
-
-    public Boolean getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(Boolean available) {
-        this.available = available;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
 }
