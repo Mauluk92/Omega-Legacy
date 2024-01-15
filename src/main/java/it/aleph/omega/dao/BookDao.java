@@ -14,5 +14,5 @@ public interface BookDao {
     Book updateBookStatus(Boolean status, Long id);
     Book associateAuthorListToBook(List<Long> idAuthorList, Long idBook);
     Book associateTagListToBook(List<Long> idTagList, Long idBook);
-    List<Book> findBooks(Integer pageNumber, Integer pageSize);
+    List<Book> findBooksFiltered(Integer pageNumber, Integer pageSize, Long authorId, List<Long> tagListId, String title);
 }

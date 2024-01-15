@@ -8,7 +8,6 @@ import java.util.List;
 
 @Entity
 @Table(name="book")
-@NamedQuery(name = "findAllBooks", query="SELECT b FROM Book b ORDER BY b.id")
 public class Book {
 
     @Id
