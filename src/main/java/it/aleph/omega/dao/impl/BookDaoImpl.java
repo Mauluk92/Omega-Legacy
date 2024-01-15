@@ -1,6 +1,7 @@
 package it.aleph.omega.dao.impl;
 
 import it.aleph.omega.dao.BookDao;
+import it.aleph.omega.exception.NotFoundException;
 import it.aleph.omega.model.Author;
 import it.aleph.omega.model.Book;
 import it.aleph.omega.model.Tag;
@@ -11,6 +12,7 @@ import jakarta.persistence.criteria.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -20,7 +22,8 @@ public class BookDaoImpl implements BookDao {
     private EntityManager entityManager;
     @Override
     public Book findBookById(Long id){
-        return entityManager.find(Book.class, id);
+        Optional<Book> bookOptional = Optional.ofNullable(entityManager.find(Book.class, id));
+        return bookOptional.orElseThrow(() -> buildNotFoundException(id));
     }
     @Override
     public Book createBook(Book book){
@@ -29,26 +32,26 @@ public class BookDaoImpl implements BookDao {
     }
     @Override
     public void deleteBook(Long id){
-        Book bookFound = entityManager.find(Book.class, id);
-        entityManager.remove(bookFound);
+        entityManager.remove(findBookById(id));
     }
     @Override
     public Book updateBook(Book book, Long id){
+        findBookById(id);
         book.setId(id);
         return entityManager.merge(book);
     }
 
     @Override
     public Book updateBookStatus(Boolean status, Long id) {
-        Book bookFound = entityManager.find(Book.class, id);
+        Book bookFound = findBookById(id);
         bookFound.setAvailable(status);
-        return bookFound;
+        return entityManager.merge(bookFound);
     }
 
     @Override
     public Book associateAuthorListToBook(List<Long> idAuthorList, Long idBook) {
         List<Author> authorList = idAuthorList.stream().map(id -> entityManager.find(Author.class, id)).collect(Collectors.toList());
-        Book bookFound = entityManager.find(Book.class, idBook);
+        Book bookFound = findBookById(idBook);
         bookFound.setAuthorList(authorList);
         return bookFound;
     }
@@ -56,7 +59,7 @@ public class BookDaoImpl implements BookDao {
     @Override
     public Book associateTagListToBook(List<Long> idTagList, Long idBook) {
         List<Tag> tagList = idTagList.stream().map(id -> entityManager.find(Tag.class, id)).collect(Collectors.toList());
-        Book bookFound = entityManager.find(Book.class, idBook);
+        Book bookFound = findBookById(idBook);
         bookFound.setTagList(tagList);
         return bookFound;
     }
@@ -87,5 +90,12 @@ public class BookDaoImpl implements BookDao {
                 .setFirstResult(pageNumber * pageSize)
                 .setMaxResults(pageSize)
                 .getResultList();
+    }
+
+    private NotFoundException buildNotFoundException(Long id){
+        return NotFoundException.builder()
+                .idListNotFound(List.of(id))
+                .message("The requested resources with id: " + id + " was not found")
+                .build();
     }
 }
