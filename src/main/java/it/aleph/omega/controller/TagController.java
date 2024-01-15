@@ -2,6 +2,8 @@ package it.aleph.omega.controller;
 
 import it.aleph.omega.dto.TagDto;
 import it.aleph.omega.service.TagService;
+import jakarta.annotation.security.DeclareRoles;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -10,17 +12,17 @@ import jakarta.ws.rs.core.Response;
 import java.net.URI;
 
 @Path("/tag")
+@DeclareRoles({"ADMIN", "USER", "MASTER-LIBRARIAN"})
+@RolesAllowed({"MASTER-LIBRARIAN", "ADMIN"})
 public class TagController {
-    private final TagService tagService;
 
     @Inject
-    public TagController(TagService tagService){
-        this.tagService = tagService;
-    }
+    private TagService tagService;
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"ADMIN", "USER", "MASTER-LIBRARIAN"})
     public Response findTagById(@PathParam("id") Long id){
         return Response.ok().entity(tagService.findTagById(id)).build();
     }

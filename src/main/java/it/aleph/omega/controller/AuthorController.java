@@ -2,6 +2,8 @@ package it.aleph.omega.controller;
 
 import it.aleph.omega.dto.AuthorDto;
 import it.aleph.omega.service.AuthorService;
+import jakarta.annotation.security.DeclareRoles;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -10,18 +12,16 @@ import jakarta.ws.rs.core.Response;
 import java.net.URI;
 
 @Path("/author")
+@DeclareRoles({"ADMIN", "USER", "MASTER-LIBRARIAN"})
+@RolesAllowed({"MASTER-LIBRARIAN", "ADMIN"})
 public class AuthorController {
-
-    private final AuthorService authorService;
-
     @Inject
-    public AuthorController(AuthorService authorService){
-        this.authorService = authorService;
-    }
+    private AuthorService authorService;
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"ADMIN", "USER", "MASTER-LIBRARIAN"})
     public Response getAuthorById(@PathParam("id") Long id){
         return Response.ok().entity(authorService.findAuthorById(id)).build();
     }

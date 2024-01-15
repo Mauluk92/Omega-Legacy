@@ -3,6 +3,8 @@ package it.aleph.omega.controller;
 import it.aleph.omega.dto.BookDto;
 import it.aleph.omega.dto.CreateBookDto;
 import it.aleph.omega.service.BookService;
+import jakarta.annotation.security.DeclareRoles;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -12,16 +14,17 @@ import java.net.URI;
 import java.util.List;
 
 @Path("/book")
+@DeclareRoles({"ADMIN", "USER", "MASTER-LIBRARIAN"})
+@RolesAllowed({"MASTER-LIBRARIAN", "ADMIN"})
 public class BookController {
-    private final BookService bookService;
+
     @Inject
-    public BookController(BookService bookService){
-        this.bookService = bookService;
-    }
+    private BookService bookService;
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"ADMIN", "USER", "MASTER-LIBRARIAN"})
     public Response getBookById(@PathParam(value="id") Long id){
         return Response.ok().entity(bookService.findBook(id)).build();
     }
@@ -72,8 +75,5 @@ public class BookController {
     public Response associateTagListToBook(@PathParam(value="id") Long id, List<Long> tagIdList){
         return Response.ok().entity(bookService.associateTagListToBook(tagIdList, id)).build();
     }
-
-
-
 
 }
