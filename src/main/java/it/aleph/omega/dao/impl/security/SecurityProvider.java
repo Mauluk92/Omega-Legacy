@@ -20,11 +20,11 @@ public class SecurityProvider implements IdentityStore {
     private EntityManager entityManager;
 
 
-    public CredentialValidationResult.Status validate(UsernamePasswordCredential credential){
+    public CredentialValidationResult validate(UsernamePasswordCredential credential){
         if(BCrypt.checkpw(credential.getPasswordAsString(), retrieveIdentity(credential.getCaller()).getPassword())){
-            return CredentialValidationResult.Status.VALID;
+            return new CredentialValidationResult(credential.getCaller());
         }
-        return CredentialValidationResult.Status.INVALID;
+        return CredentialValidationResult.INVALID_RESULT;
 
     }
 
