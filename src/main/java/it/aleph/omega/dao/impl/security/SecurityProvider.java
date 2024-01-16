@@ -7,33 +7,28 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import jakarta.security.enterprise.authentication.mechanism.http.FormAuthenticationMechanismDefinition;
+import jakarta.security.enterprise.authentication.mechanism.http.LoginToContinue;
 import jakarta.security.enterprise.credential.UsernamePasswordCredential;
 import jakarta.security.enterprise.identitystore.CredentialValidationResult;
 import jakarta.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
 import jakarta.security.enterprise.identitystore.IdentityStore;
 import org.mindrot.jbcrypt.BCrypt;
 
-@DatabaseIdentityStoreDefinition
+import java.util.HashSet;
+import java.util.Set;
+
+@DatabaseIdentityStoreDefinition(
+        useFor = {
+        IdentityStore.ValidationType.VALIDATE,
+        IdentityStore.ValidationType.PROVIDE_GROUPS
+},
+        callerQuery = "SELECT password FROM user_identity WHERE name= ?",
+        groupsQuery = "SELECT group_identity.name " +
+        "FROM user_identity " +
+        "INNER JOIN group_identity " +
+        "WHERE user_identity.group = group_identity.id " +
+        "WHERE user_identity.username = ?"
+)
 public class SecurityProvider implements IdentityStore {
-
-    @PersistenceContext(unitName = "OmegaLegacy")
-    private EntityManager entityManager;
-
-
-    public CredentialValidationResult validate(UsernamePasswordCredential credential){
-        if(BCrypt.checkpw(credential.getPasswordAsString(), retrieveIdentity(credential.getCaller()).getPassword())){
-            return new CredentialValidationResult(credential.getCaller());
-        }
-        return CredentialValidationResult.INVALID_RESULT;
-
-    }
-
-    private UserIdentity retrieveIdentity(String callerName){
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<UserIdentity> criteriaQuery = criteriaBuilder.createQuery(UserIdentity.class);
-        Root<UserIdentity> userIdentityRoot = criteriaQuery.from(UserIdentity.class);
-        Predicate userEqualPredicate = criteriaBuilder.equal(userIdentityRoot.get("username"), callerName);
-        criteriaQuery.select(userIdentityRoot).where(userEqualPredicate);
-        return entityManager.createQuery(criteriaQuery).getSingleResult();
-    }
 }
