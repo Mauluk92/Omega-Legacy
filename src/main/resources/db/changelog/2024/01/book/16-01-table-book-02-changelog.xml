@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="alter-table-book-01" author="nicola" runOnChange="true">
+        <addNotNullConstraint tableName="book" columnName="isbn" columnDataType="varchar(255)"/>
+        <addNotNullConstraint tableName="book" columnName="pub_house" columnDataType="varchar(255)"/>
+        <addNotNullConstraint tableName="book" columnName="pub_date" columnDataType="varchar(255)"/>
+        <addNotNullConstraint tableName="book" columnName="dewey_decimal_code" columnDataType="char(13)"/>
+        <addNotNullConstraint tableName="book" columnName="content_description" columnDataType="varchar(255)"/>
+        <addNotNullConstraint tableName="book" columnName="available" columnDataType="tinyint"/>
+        <addNotNullConstraint tableName="book" columnName="title" columnDataType="varchar(255)"/>
+    </changeSet>
+</databaseChangeLog>
