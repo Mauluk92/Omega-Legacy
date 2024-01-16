@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="add-constraints-security-user-identity-01" author="nicola" runOnChange="true">
+        <addNotNullConstraint tableName="user_identity" columnName="id" columnDataType="integer"/>
+        <addNotNullConstraint tableName="user_identity" columnName="username" columnDataType="varchar(255)"/>
+        <addNotNullConstraint tableName="user_identity" columnName="password" columnDataType="varchar(255)"/>
+        <addForeignKeyConstraint baseTableName="user_identity" baseColumnNames="group" constraintName="fk_user_group"
+                                 referencedTableName="group_identity"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+</databaseChangeLog>
