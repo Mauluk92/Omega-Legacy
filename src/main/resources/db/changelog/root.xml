@@ -14,4 +14,13 @@
     <!-- TAG SECTION -->
     <include file="/db/changelog/2024/01/tag/16-01-table-tag-01-changelog.xml"/>
     <!-- END TAG SECTION -->
+
+
+    <!--- IDENTITY STORE SECTION -->
+    <include file="/db/changelog/2024/01/security/16-01-table-user-identity-01-changelog.xml"/>
+    <include file="/db/changelog/2024/01/security/16-01-table-group-identity-01-changelog.xml"/>
+    <include file="/db/changelog/2024/01/security/16-01-table-user-identity-02-changelog.xml"/>
+    <include file="/db/changelog/2024/01/security/16-01-table-group-identity-02-changelog.xml"/>
+    <!-- END IDENTITY STORE SECTION -->
+
 </databaseChangeLog>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create-table-security-user-identity-01" author="nicola" runOnChange="true">
+        <createTable tableName="user_identity">
+            <column name="id" type="integer"/>
+            <column name="username" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+            <column name="status" type="boolean"/>
+            <column name="group" type="integer"/>
+
+        </createTable>
+        <addPrimaryKey tableName="user_identity" columnNames="id"/>
+        <addAutoIncrement tableName="user_identity" columnName="id" columnDataType="integer"/>
+
+    </changeSet>
+</databaseChangeLog>
