@@ -16,14 +16,23 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Long id;
+    @Column(nullable=false, name="title")
     private String title;
+    @Column(nullable=false, name="isbn")
     private String isbn;
+    @Column(nullable=false, name="dewey_decimal_code")
     private String deweyDecimalCode;
+    @Column(nullable=false, name="content_description")
     private String contentDescription;
+    @Column(nullable=false, name="pub_date")
     private LocalDate pubDate;
+    @Column(nullable=false, name="pub_house")
     private String pubHouse;
+    @Column(nullable=false, name="available")
     private Boolean available;
+    @Column(name="price")
     private BigDecimal price;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
