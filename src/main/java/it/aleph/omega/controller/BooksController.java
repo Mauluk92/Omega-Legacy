@@ -10,13 +10,9 @@ import java.util.List;
 
 @Path("/books")
 public class BooksController {
-
-    private final BookService bookService;
-
     @Inject
-    public BooksController(BookService bookService){
-        this.bookService = bookService;
-    }
+    private BookService bookService;
+
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)

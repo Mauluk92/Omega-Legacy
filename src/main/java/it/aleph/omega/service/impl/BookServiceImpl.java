@@ -12,15 +12,10 @@ import jakarta.inject.Singleton;
 import java.util.List;
 @Singleton
 public class BookServiceImpl implements BookService {
-
-    private final BookDao bookDao;
-    private final BookDtoMapper bookDtoMapper;
-
     @Inject
-    public BookServiceImpl(BookDao bookDao, BookDtoMapper bookDtoMapper){
-        this.bookDao = bookDao;
-        this.bookDtoMapper = bookDtoMapper;
-    }
+    private BookDao bookDao;
+    @Inject
+    private BookDtoMapper bookDtoMapper;
 
     @Override
     public CreateBookDto createBook(CreateBookDto createBookDto) {

@@ -13,11 +13,9 @@ import java.util.List;
 
 @Path("/book")
 public class BookController {
-    private final BookService bookService;
+
     @Inject
-    public BookController(BookService bookService){
-        this.bookService = bookService;
-    }
+    private BookService bookService;
 
     @GET
     @Path("/{id}")
@@ -50,7 +48,7 @@ public class BookController {
     }
 
     @PUT
-    @Path("{id}")
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateBookById(@PathParam(value="id") Long id, BookDto bookDto){
@@ -58,7 +56,7 @@ public class BookController {
     }
 
     @PATCH
-    @Path("{id}")
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response associateAuthorListToBook(@PathParam(value="id") Long id, List<Long> authorIdList){
@@ -66,7 +64,7 @@ public class BookController {
     }
 
     @PATCH
-    @Path("{id}")
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response associateTagListToBook(@PathParam(value="id") Long id, List<Long> tagIdList){

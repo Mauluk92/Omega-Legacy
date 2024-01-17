@@ -11,12 +11,9 @@ import java.net.URI;
 
 @Path("/tag")
 public class TagController {
-    private final TagService tagService;
 
     @Inject
-    public TagController(TagService tagService){
-        this.tagService = tagService;
-    }
+    private TagService tagService;
 
     @GET
     @Path("/{id}")

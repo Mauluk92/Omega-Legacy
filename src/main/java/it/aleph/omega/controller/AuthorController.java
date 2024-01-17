@@ -12,12 +12,8 @@ import java.net.URI;
 @Path("/author")
 public class AuthorController {
 
-    private final AuthorService authorService;
-
     @Inject
-    public AuthorController(AuthorService authorService){
-        this.authorService = authorService;
-    }
+    private AuthorService authorService;
 
     @GET
     @Path("/{id}")

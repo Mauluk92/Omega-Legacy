@@ -21,6 +21,11 @@
     <include file="/db/changelog/2024/01/security/16-01-table-group-identity-01-changelog.xml"/>
     <include file="/db/changelog/2024/01/security/16-01-table-user-identity-02-changelog.xml"/>
     <include file="/db/changelog/2024/01/security/16-01-table-group-identity-02-changelog.xml"/>
+
+    <!-- Tables dropped for identity store. -->
+
+    <include file="/db/changelog/2024/01/security/17-01-table-user-identity-03-changelog.xml"/>
+    <include file="/db/changelog/2024/01/security/17-01-table-group-identity-03-changelog.xml"/>
     <!-- END IDENTITY STORE SECTION -->
 
 </databaseChangeLog>

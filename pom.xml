@@ -83,19 +83,10 @@
             <artifactId>liquibase-core</artifactId>
             <version>4.25.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/jakarta.security.enterprise/jakarta.security.enterprise-api -->
-        <dependency>
-            <groupId>jakarta.security.enterprise</groupId>
-            <artifactId>jakarta.security.enterprise-api</artifactId>
-            <version>3.0.0</version>
-        </dependency>
 
 
-        <dependency>
-            <groupId>de.svenkubiak</groupId>
-            <artifactId>jBCrypt</artifactId>
-            <version>0.4.1</version>
-        </dependency>
+
+
     </dependencies>
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
